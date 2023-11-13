@@ -1,0 +1,21 @@
+{
+  "id": "chatcmpl-8KRk0RsEaRaiAaiOGz1NL67guSZtr",
+  "object": "chat.completion",
+  "created": 1699883888,
+  "model": "gpt-3.5-turbo-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "void fill_icmp_echo_sender(Echo_or_Echo_Reply_Message_hdr *hdr, uint16_t length,\n                           int type_value) {\n  // Set the type field\n  hdr->type = type_value;\n\n  // Set the code field to 0\n  hdr->code = 0;\n\n  // Set the identifier field to 0 if the code is 0\n  if (hdr->code == 0) {\n    hdr->identifier = 0;\n  }\n\n  // Set the sequence number field to 0 if the code is 0\n  if (hdr->code == 0) {\n    hdr->sequence_number = 0;\n  }\n\n  // Set the checksum field to 0 for computing the checksum\n  hdr->checksum = 0;\n\n  // If the total length is odd, pad the received data with one octet of zeros\n  if (length % 2 != 0) {\n    // Pad with one octet of zeros\n    // Assuming hdr->data is a byte array representing the received data\n    hdr->data[length] = 0;\n  }\n\n  // Compute the checksum\n  uint32_t sum = 0;\n  uint16_t *ptr = (uint16_t *)hdr;\n  uint16_t words = sizeof(Echo_or_Echo_Reply_Message_hdr) / sizeof(uint16_t);\n  while (words--) {\n    sum += *ptr++;\n  }\n  sum = (sum >> 16) + (sum & 0xffff);\n  sum += (sum >> 16);\n  hdr->checksum = ~sum;\n}"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 228,
+    "completion_tokens": 330,
+    "total_tokens": 558
+  }
+}
